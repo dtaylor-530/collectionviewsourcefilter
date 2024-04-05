@@ -7,15 +7,21 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
+    <FrameworkElement.DataContext>
+        <local:ShellViewModel/>
+    </FrameworkElement.DataContext>
+    <!--<Window.Resources>
         <CollectionViewSource x:Key="collectionViewSource" Source="{Binding Users}"/>
-    </Window.Resources>
+    </Window.Resources>-->
     <DockPanel Margin="5">
         <Button Command="{Binding FilterCommand}" Content="Filter" DockPanel.Dock="Top" HorizontalAlignment="Right"/>
-        <DataGrid Margin="0,5,0,0" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource collectionViewSource}}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Button Command="{Binding ClearFilterCommand}" Content="Clear Filter" DockPanel.Dock="Top" HorizontalAlignment="Right"/>
+        <ListBox Margin="0,5,0,0"  ItemsSource="{Binding collectionView}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding FirstName}"/>
+                </DataTemplate>       
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </Window>

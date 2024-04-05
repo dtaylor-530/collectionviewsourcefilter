@@ -12,10 +12,8 @@ namespace WPFTest {
   /// </summary>
   public partial class App : Application {
     private void Application_Startup(object sender, StartupEventArgs e) {
-      ShellView view = new ShellView();
-      view.DataContext = new ShellViewModel();
-      this.MainWindow = view;
-      this.MainWindow.ShowDialog();
+
+      new ShellView().Show();
     }
   }
 }
