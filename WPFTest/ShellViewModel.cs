@@ -14,6 +14,9 @@ namespace WPFTest
         public ICommand ClearFilterCommand { get; }
         public ICollectionView collectionView { get; }
 
+        Random random = new Random();
+        string value;
+
         public ShellViewModel()
         {
 
@@ -23,12 +26,12 @@ namespace WPFTest
             this._users.Add(new User() { FirstName = "4" });
             this._users.Add(new User() { FirstName = "5" });
             collectionView = CollectionViewSource.GetDefaultView(this._users);
-
-
+            collectionView.Filter += OnFilter;
+            value = (1 + random.Next(5)).ToString();
 
             this.FilterCommand = new RelayCommand((a) =>
             {
-                collectionView.Filter += OnFilter;
+                value = random.Next(5).ToString();
                 collectionView.Refresh();
             }, e => true);
 
@@ -42,7 +45,7 @@ namespace WPFTest
         private bool OnFilter(object obj)
         {
             User user = (User)obj;
-            if (user.FirstName.Equals("1"))
+            if (user.FirstName.Equals(value))
             {
                 return true;
             }
